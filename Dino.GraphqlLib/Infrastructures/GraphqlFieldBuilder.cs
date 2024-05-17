@@ -46,8 +46,19 @@ namespace Dino.GraphqlLib.Infrastructures
 
             return this;
         }
+
+
+        private bool AllowNewFieldName(string fieldName)
+        {
+            if (char.IsLower(fieldName[0]))
+            {
+                return true;
+            }
+            throw new ArgumentException($"newField '{fieldName}' is invalid!");
+        }
         public FieldToResolve<TModel> ExtendField<TModel>(string newField)
         {
+            AllowNewFieldName(newField);
             var field = SchemaProvider.Type<TModel>();
             return field.AddField(newField, null);
         }
