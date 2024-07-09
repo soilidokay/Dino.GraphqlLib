@@ -64,7 +64,8 @@ namespace Dino.GraphqlLib.Extensions.FilterWithRole
             if (data?.Key == null)
             {
                 _logger?.LogWarning("No match role in maprole!");
-                throw new UnauthorizedAccessException("Resource access denied!");
+                _logger?.LogWarning($"{typeof(TModel).Name} Resource access denied!");
+                throw new UnauthorizedAccessException($"{typeof(TModel).Name} Resource access denied!");
             }
             return data?.Value?.Invoke(_serviceProvider);
         }
